@@ -1,0 +1,39 @@
+{
+    "frames": [
+      {
+        "filename": "fly01",
+        "frame": {"x": 0, "y": 50, "w": 50, "h": 50},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x": 0, "y": 0, "w": 50, "h": 50},
+        "sourceSize": {"w": 50, "h": 50}
+      },
+
+      {
+        "filename": "fly02",
+        "frame": {"x": 50, "y": 50, "w": 50, "h": 50},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x": 0, "y": 0, "w": 50, "h": 50},
+        "sourceSize": {"w": 50, "h": 50}
+      },
+
+      {
+        "filename": "fly03",
+        "frame": {"x": 100, "y": 50, "w": 50, "h": 50},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x": 0, "y": 0, "w": 50, "h": 50},
+        "sourceSize": {"w": 50, "h": 50}
+      }
+
+    ],
+    "meta": {
+      "app": "Your App",
+      "version": "1.0",
+      "image": "flyM.png",
+      "format": "RGBA8888",
+      "size": {"w": 300, "h": 400},
+      "scale": "1"
+    }
+  }
