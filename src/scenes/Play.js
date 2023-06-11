@@ -4,11 +4,24 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        console.log("Version 0.05b");
+        const background = this.add.image(0, 0, 'BKG').setOrigin(0, 0);
+        this.p1Rocket = new Rocket(this, game.config.width / 2, game.config.height - borderUISize - borderPadding, 'dog').setOrigin(0.5, 0);
+        this.time.delayedCall(1000, () => {
+            this.p1Rocket.anims.play('doggo', true);
+        });
 
-    const background = this.add.image(0, 0, 'BKG').setOrigin(0, 0);
-        
+        this.tinman = new Tinman(this, -100, game.config.height/2, 'tinman').setOrigin(0.5, 0);
+        this.time.delayedCall(1000, () => {
+            this.tinman.anims.play('riceball', true);
+        });
 
-        this.boySpeed = 400;
+        this.lion = new Lion(this, -100, game.config.height/2, 'lion').setOrigin(0.5, 0);
+        this.time.delayedCall(2000, () => {
+            this.lion.anims.play('ramen', true);
+        });
+
+        this.boySpeed = 40;
         this.boySpeedMax = 1000;
         level = 0;
         this.extremeMODE = false;
@@ -36,26 +49,26 @@ class Play extends Phaser.Scene {
         });
         this.bgm.play();
 
-        if (this.textures.exists('titlesnapshot')) {
-            let titleSnap = this.add.image(centerX, centerY, 'titlesnapshot').setOrigin(0.5);
-            this.tweens.add({
-                targets: titleSnap,
-                duration: 1500,
-                alpha: { from: 1, to: 0 },
-                scale: { from: 1, to: 4 },
-                repeat: 0
-            });
-        } else {
-            console.log('texture error');
-        }
-
-
-        let line = new Phaser.Geom.Line(w, 0, w, h);
+        this.time.delayedCall(20, () => { 
+            if (this.textures.exists('titlesnapshot')) {
+                let titleSnap = this.add.image(centerX, centerY, 'titlesnapshot').setOrigin(0.5);
+                this.tweens.add({
+                    targets: titleSnap,
+                    duration: 1500,
+                    alpha: { from: 1, to: 0 },
+                    scale: { from: 1, to: 4 },
+                    repeat: 0
+                });
+                
+            } else {
+                console.log('texture error');
+            }
+        });
 
 
         this.particleManager = this.add.particles('poppy');
-        
 
+        let line = new Phaser.Geom.Line(w, 0, w, h);
         this.lineEmitter = this.particleManager.createEmitter({
             speedX: { min: -500, max: -150 },
             speedY: { min: 50, max: 100 },
@@ -69,7 +82,6 @@ class Play extends Phaser.Scene {
         });
 
         let line2 = new Phaser.Geom.Line(0, 0, w, 0);
-
         this.lineEmitter2 = this.particleManager.createEmitter({
             speedX: { min: -500, max: -150 },
             speedY: { min: 50, max: 100 },
@@ -82,8 +94,6 @@ class Play extends Phaser.Scene {
             frequency: 300 
         });
         
-
-
         this.anims.create({
             key: 'run',
             frames: this.anims.generateFrameNames('dorothy', {
@@ -106,8 +116,56 @@ class Play extends Phaser.Scene {
             }),
             frameRate: 5,
             repeat: -1
-        });        
+        });
 
+        this.anims.create({
+            key: 'die',
+            frames: this.anims.generateFrameNames('haha', {
+              prefix: 'flyMD',
+              start: 1,
+              end: 3,
+              zeroPad: 2
+            }),
+            frameRate: 5,
+            repeat: 0
+        });        
+        
+        this.anims.create({
+            key: 'doggo',
+            frames: this.anims.generateFrameNames('dog', {
+              prefix: 'dogWalk',
+              start: 1,
+              end: 3,
+              zeroPad: 2
+            }),
+            frameRate: 5,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'riceball',
+            frames: this.anims.generateFrameNames('tinman', {
+              prefix: 'wow',
+              start: 1,
+              end: 3,
+              zeroPad: 2
+            }),
+            frameRate: 5,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'ramen',
+            frames: this.anims.generateFrameNames('lion', {
+              prefix: 'meow',
+              start: 1,
+              end: 3,
+              zeroPad: 2
+            }),
+            frameRate: 5,
+            repeat: -1
+        });
+        
         dorothy = this.physics.add.sprite(centerX, h - 100, 'dorothy').setOrigin(0.5);
         dorothy.setCollideWorldBounds(true);
         dorothy.setBounce(0.5);
@@ -115,19 +173,37 @@ class Play extends Phaser.Scene {
         dorothy.setMaxVelocity(325, 325);
         //dorothy.setDragX(0);
         //dorothy.setDragY(0);
-        dorothy.setDepth(1);            
-        dorothy.destroyed = false;       
-        dorothy.setBlendMode('SCREEN');  
+        dorothy.setDepth(1);
+        dorothy.destroyed = false;
+        dorothy.setBlendMode('SCREEN');
         dorothy.anims.play('run', true);
         dorothy.setBlendMode(Phaser.BlendModes.NORMAL);
+
+        this.healthBar = new HealthBar(this, healthX, healthY);
+
 
         this.boyGroup = this.add.group({
             runChildUpdate: true   
         });
 
-        this.time.delayedCall(20, () => { 
-            this.addBoy();
+        // main timer, make a moneky every 4 seconds
+        const timer = this.time.addEvent({
+            delay: 4000, // Delay in milliseconds (4 seconds)
+            loop: true, // Set to true to repeat the timer indefinitely
+            callback: this.addFlyM,
+            callbackScope: this
         });
+
+        // secondary timer... after 30 seconds, make another monkey every 3 seconds
+        this.time.delayedCall(30000, () => {
+            const timer2 = this.time.addEvent({
+                delay: 3000, // Delay in milliseconds (4 seconds)
+                loop: true, // Set to true to repeat the timer indefinitely
+                callback: this.addFlyM,
+                callbackScope: this
+            });
+        });
+
 
 
         this.difficultyTimer = this.time.addEvent({
@@ -137,14 +213,21 @@ class Play extends Phaser.Scene {
             loop: true
         });
 
+        this.time.delayedCall(10000, () => {
+            this.tinman.activate();
+        });
+
+        this.time.delayedCall(20000, () => {
+            this.lion.activate();
+        });
 
         cursors = this.input.keyboard.createCursorKeys();
     }
 
 
-    addBoy() {
-        let speedVariance =  Phaser.Math.Between(0, 50);
-        let flyM = new FlyM(this, this.boySpeed - speedVariance);
+    addFlyM() {
+        let speedVariance =  Phaser.Math.Between(0, 20);
+        let flyM = new FlyM(this, this.boySpeed + speedVariance);
 
         this.boyGroup.add(flyM);
     }
@@ -152,7 +235,12 @@ class Play extends Phaser.Scene {
     update() {
 
         if(!dorothy.destroyed) {
+            //Phaser.keyboard.input.isJustDown
            
+            if(cursors.space.isDown) {
+                this.p1Rocket.fireRocket();
+            }
+
             if(cursors.left.isDown) {
                 dorothy.body.velocity.x -= dorothyAcceleration;
             }
@@ -182,10 +270,67 @@ class Play extends Phaser.Scene {
 
             //console.log(dorothy.body.velocity.x);
 
-            this.physics.world.collide(dorothy, this.boyGroup, this.dorothyCollision, null, this);
+            this.p1Rocket.update();
+            this.tinman.update();
+            this.lion.update();
+
+            // check if dog rocket has collided with a boy, if so, kill it
+            for(let i=0;i<this.boyGroup.getChildren().length;i++) {
+                let nextBoy = this.boyGroup.getChildren()[i];
+                if (this.checkCollision(this.p1Rocket, nextBoy)) {
+                    this.p1Rocket.reset();
+                    this.shipExplode(nextBoy);
+
+                    break; // (can't collide twice)
+                }
+            }
+            
+            // check if boy is within lion roar radius, if so, kill it
+            for(let i=0;i<this.boyGroup.getChildren().length;i++) {
+                let nextBoy = this.boyGroup.getChildren()[i];
+                if(this.lion.roarRadiusContains(nextBoy.x, nextBoy.y)) {
+                    this.shipExplode(nextBoy);
+
+                    break; // (can't collide twice, will catch one per frame max)
+                }
+            }
+
+            // check if dorothy collided with a boy, if so, kill it AND hurt dorothy
+            for(let i=0;i<this.boyGroup.getChildren().length;i++) {
+                let nextBoy = this.boyGroup.getChildren()[i];
+                if (nextBoy.isAlive() && this.checkCollision(dorothy, nextBoy)) {
+                    this.shipExplode(nextBoy);
+                    this.dorothyCollision();
+                }
+            }
         }
     }
 
+    checkCollision(partyMember, boy) {
+        // simple AABB checking
+        if (partyMember.x < boy.x + boy.width &&
+            partyMember.x + partyMember.width > boy.x &&
+            partyMember.y < boy.y + boy.height &&
+            partyMember.height + partyMember.y > boy.y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    shipExplode(ship) {
+        // temporarily hide ship
+
+        ship.die();
+        this.sound.play('blow', { volume: 0.5 });  
+        this.boyGroup.remove(ship); 
+        this.time.delayedCall(600, () => { 
+            ship.setAlpha(0);
+        });
+
+        //this.sound.play('sfx_explosion');
+    }
+    
     levelBump() {
 
         level++;
@@ -214,12 +359,22 @@ class Play extends Phaser.Scene {
         let letters = '0123456789ABCDEF';
         let color = '#';
         for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
+            color += letters[Math.floor(Math.random() * 16)]; 
         }
         return color;
     }
 
     dorothyCollision() {
+        this.healthBar.takeHit();
+        if (this.healthBar.getHearts() != 0){
+            return;
+        }
+
+
+
+
+
+
         dorothy.destroyed = true;                   
         this.difficultyTimer.destroy();           
         this.sound.play('death', { volume: 0.25 });

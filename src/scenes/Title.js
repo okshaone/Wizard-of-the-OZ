@@ -6,11 +6,13 @@ class Title extends Phaser.Scene {
     create() {
 
         let title01 = this.add.bitmapText(centerX, 100, 'huh', 'The witch of the OOZZ', 40).setOrigin(0.5).setTint(0x00ff00);
-        let title02 = this.add.bitmapText(centerX, centerY + 100, 'huh', 'The witch of the OOZZ', 40).setOrigin(0.5).setTint(0x00ffff).setBlendMode('SCREEN');
+        let title02 = this.add.bitmapText(centerX, centerY + 150, 'huh', 'The witch of the OOZZ', 40).setOrigin(0.5).setTint(0x00ffff).setBlendMode('SCREEN');
         
         this.add.bitmapText(centerX, centerY - textSpacer*2, 'huh', 'Join the adventure of Dorothy ', 24).setOrigin(0.5);
-        this.add.bitmapText(centerX, centerY - textSpacer*1.5, 'huh', 'in this platform jumper game!', 24).setOrigin(0.5);
+        this.add.bitmapText(centerX, centerY - textSpacer*1.5, 'huh', 'in this amazing shooting game!', 24).setOrigin(0.5);
         this.add.bitmapText(centerX, centerY - textSpacer*0.1, 'huh', 'Press UP ARROW to Start', 36).setOrigin(0.5);
+        this.add.bitmapText(centerX, centerY + textSpacer*0.5, 'huh', 'Press ARROW Keys to control Dorothy', 20).setOrigin(0.5);
+        this.add.bitmapText(centerX, centerY + textSpacer*0.9, 'huh', 'and press SPACE BAR to fire!!!!', 20).setOrigin(0.5);
         this.add.bitmapText(centerX, h - textSpacer - 20, 'huh', 'BGM by JJD ', 16).setOrigin(0.5);
         this.add.bitmapText(centerX, h - textSpacer, 'huh', 'Sound Effect and Grafics by', 16).setOrigin(0.5);
         this.add.bitmapText(centerX, h - textSpacer + 20, 'huh', 'Stephen Wei', 16).setOrigin(0.5);
@@ -29,7 +31,7 @@ class Title extends Phaser.Scene {
         this.tweens.add({
             targets: title02,
             duration: 2500,
-            angle: { from: 10, to: -10 },
+            angle: { from: 3, to: -3 },
             yoyo: true,
             repeat: -1,
             onRepeat: function() {
@@ -37,7 +39,6 @@ class Title extends Phaser.Scene {
             },
             onRepeatScope: this
         });
-
 
         cursors = this.input.keyboard.createCursorKeys();  
     }

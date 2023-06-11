@@ -1,0 +1,39 @@
+{
+    "frames": [
+      {
+        "filename": "meow01",
+        "frame": {"x": 0, "y": 100, "w": 46, "h": 46},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x": 0, "y": 0, "w": 46, "h": 46},
+        "sourceSize": {"w": 46, "h": 46}
+      },
+
+      {
+        "filename": "meow02",
+        "frame": {"x": 50, "y": 100, "w": 46, "h": 46},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x": 0, "y": 0, "w": 46, "h": 46},
+        "sourceSize": {"w": 46, "h": 46}
+      },
+
+      {
+        "filename": "meow03",
+        "frame": {"x": 100, "y": 100, "w": 46, "h": 46},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x": 0, "y": 0, "w": 46, "h": 46},
+        "sourceSize": {"w": 46, "h": 46}
+      }
+
+    ],
+    "meta": {
+      "app": "Your App",
+      "version": "1.0",
+      "image": "lion.png",
+      "format": "RGBA8888",
+      "size": {"w": 300, "h": 400},
+      "scale": "1"
+    }
+  }

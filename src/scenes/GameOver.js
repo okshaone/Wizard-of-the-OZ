@@ -22,16 +22,17 @@ class GameOver extends Phaser.Scene {
         if(newHighScore) {
             this.add.bitmapText(centerX, centerY - textSpacer, 'huh', 'New Hi-Score!', 32).setOrigin(0.5);
         }
-        this.add.bitmapText(centerX, 0 + textSpacer, 'huh', `You survived ${level}s under the flyM's invasion`, 20).setOrigin(0.5);
-        this.add.bitmapText(centerX, 0 + textSpacer*2.5, 'huh', `The best a human has ever done was ${highScore}s`, 24).setOrigin(0.5);
+        this.add.bitmapText(centerX, 0 + textSpacer, 'huh', `Dorothy survived ${level}s under the Monkeies' invasion`, 20).setOrigin(0.5);
+        this.add.bitmapText(centerX, 0 + textSpacer*2.5, 'huh', `The best score was achieve by SCARECROW `, 24).setOrigin(0.5);
+        this.add.bitmapText(centerX, 0 + textSpacer*3.5, 'huh', `and it was ${highScore}s`, 24).setOrigin(0.5);
         this.add.bitmapText(centerX, centerY + textSpacer*2, 'huh', `Press UP ARROW to Restart`, 36).setOrigin(0.5);
-        this.addflyM();
+        this.addThreat();
 
 
         cursors = this.input.keyboard.createCursorKeys();
     }
    
-    addflyM() {
+    addThreat() {
         let flyM = new FlyM(this, 0 );
         flyM.x = centerX;
         flyM.y = centerY + 45;
@@ -41,7 +42,6 @@ class GameOver extends Phaser.Scene {
         let flyM3 = new FlyM(this, 0 );
         flyM3.x = centerX - 60;
         flyM3.y = centerY - 20;
-        
     }
 
     update() {

@@ -1,0 +1,39 @@
+{
+    "frames": [
+      {
+        "filename": "dogWalk01",
+        "frame": {"x": 0, "y": 0, "w": 46, "h": 50},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x": 0, "y": 0, "w": 46, "h": 50},
+        "sourceSize": {"w": 46, "h": 50}
+      },
+
+      {
+        "filename": "dogWalk02",
+        "frame": {"x": 50, "y": 0, "w": 46, "h": 50},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x": 0, "y": 0, "w": 46, "h": 50},
+        "sourceSize": {"w": 46, "h": 50}
+      },
+
+      {
+        "filename": "dogWalk03",
+        "frame": {"x": 100, "y": 0, "w": 46, "h": 50},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x": 0, "y": 0, "w": 46, "h": 50},
+        "sourceSize": {"w": 46, "h": 50}
+      }
+
+    ],
+    "meta": {
+      "app": "Your App",
+      "version": "1.0",
+      "image": "dog.png",
+      "format": "RGBA8888",
+      "size": {"w": 300, "h": 400},
+      "scale": "1"
+    }
+  }
