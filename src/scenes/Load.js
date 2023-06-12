@@ -34,7 +34,7 @@ class Load extends Phaser.Scene {
         this.load.audio('beats', ['audio/cat.m4a']);
         this.load.audio('clang', ['audio/clang.m4a']);
         this.load.audio('death', ['audio/death.m4a']);
-        this.load.audio('respawn', ['audio/heal.m4a']);
+        this.load.audio('respawn', ['audio/Heal.m4a']);
         this.load.audio('bark', ['audio/bark.ogg']);
         this.load.audio('explode', ['audio/explode.ogg']);
         this.load.audio('roar', ['audio/roar.ogg']);
